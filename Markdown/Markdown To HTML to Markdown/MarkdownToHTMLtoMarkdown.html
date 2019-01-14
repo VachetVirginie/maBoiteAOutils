@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Markdown To HTML to Markdown</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/to-markdown/3.0.4/to-markdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.6.4/showdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+        <div class="row">
+                <div class="columnHeader"><h1>MarkDown --&gt;</h1></div>
+                <div class="columnHeader"><h1>Render</h1></div>
+                <div class="columnHeader"><h1>&lt;-- HTML</h1></div>
+              </div>
+              <div class="row">
+                <textarea id="markdowntext" rows="40" placeholder="Write Markdown here . . ."></textarea>
+                <div id="outputRender"></div>
+                <textarea id="htmltext" rows="40" placeholder="Or write HTML here . . ."></textarea>
+              </div>
+
+<script>
+    var converter = new showdown.Converter({noHeaderId: true});
+
+$(document).ready(function() {
+  htmlToMarkdown();
+  $("#htmltext").on("keyup", function() {
+    htmlToMarkdown();
+  });
+
+  $("#markdowntext").on("keyup", function() {
+    markdownToHtml();
+  });
+});
+
+function htmlToMarkdown() {
+  console.log("Generating Markdown", $("#htmltext").val(), toMarkdown($("#htmltext").val()));
+  $("#markdowntext").val(toMarkdown($("#htmltext").val()));
+  $("#outputRender").html($("#htmltext").val());
+}
+
+function markdownToHtml() {
+  console.log("Generating HTML");
+  $("#htmltext").val(converter.makeHtml($("#markdowntext").val()));
+  $("#outputRender").html($("#htmltext").val());
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+.row {
+    display:flex;
+  }
+  
+  textarea, .columnHeader, #outputRender {
+    display: inline-block;
+    flex: 1 0 auto;
+    margin: 0 2.5em 0 2.5em;
+  }
+  
+  #outputRender {
+    max-width: 30vw;
+  }
+  
+  .columnHeader {
+    text-align: center;
+  }
