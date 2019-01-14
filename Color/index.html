@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+    
+    function generator() {
+  var colorBlocks = document.getElementsByClassName("colored"),
+    superRandomCharacters = '1234567890abcdef'.split(''),
+    superRandomColor = function() {
+      var color = "#";
+      for (var i = 0; i < 6; i++)
+        color += superRandomCharacters[Math.floor(Math.random() * 16)];
+
+      return color;
+    },
+    random = [superRandomColor(), superRandomColor(), superRandomColor()];
+  for (var i = 0; i < colorBlocks.length; i++) {
+    colorBlocks[i].style.backgroundColor = random[i];
+    colorBlocks[i].innerHTML = random[i];
+  }
+  var firstColor = _("first");
+  firstColor.dataset.first = false;
+}
+window.onload = function() {
+
+  var navBtn = _("nav-btn"),
+    navBlock = _("nav-block"),
+    colorCompareSpace = _("color-compare-space"),
+    colorCompareClose = _("color-compare-close"),
+    body = document.body;
+
+  navBtn.addEventListener("click", function() {
+    toggleClass(navBtn, "active");
+    toggleClass(navBlock, "active");
+    toggleClass(body, "active");
+  });
+
+  colorCompareClose.addEventListener("click", function() {
+    toggleClass(colorCompareSpace, "disabled");
+  });
+}
+
+function displayCopyPaste(div) {
+  var colorValue = div.innerHTML;
+  window.prompt("Copy and press Enter", colorValue)
+}
+
+function displayPalette(div) {
+  var displaySpace = _("color-compare-space");
+  displaySpace.className = "";
+
+  var navBtn = _("nav-btn"),
+    navBlock = _("nav-block"),
+    body = document.body;
+
+  toggleClass(navBtn, "active");
+  toggleClass(navBlock, "active");
+  toggleClass(body, "active");
+
+  var collectionArray = div.parentElement.children;
+
+  var elColorH = collectionArray[1].innerHTML,
+    elColorH2 = collectionArray[2].innerHTML,
+    elColorH3 = collectionArray[3].innerHTML;
+
+  var elColorArrayHex = [elColorH, elColorH2, elColorH3];
+
+  var elColorR = collectionArray[1].style.backgroundColor,
+    elColorR2 = collectionArray[2].style.backgroundColor,
+    elColorR3 = collectionArray[3].style.backgroundColor;
+
+  var elColorArrayRgb = [elColorR, elColorR2, elColorR3];
+
+  var first = document.getElementsByClassName("first-color"),
+    second = document.getElementsByClassName("second-color"),
+    third = document.getElementsByClassName("third-color");
+
+  for (i = 0; i < first.length; i++) {
+    first[i].style.backgroundColor = elColorArrayRgb[0];
+    first[i].innerHTML = elColorArrayHex[0];
+  }
+  for (i = 0; i < second.length; i++) {
+    second[i].style.backgroundColor = elColorArrayRgb[1];
+    second[i].innerHTML = elColorArrayHex[1];
+  }
+  for (i = 0; i < third.length; i++) {
+    third[i].style.backgroundColor = elColorArrayRgb[2];
+    third[i].innerHTML = elColorArrayHex[2];
+  }
+
+}
+
+var collections = []
+
+function saveColors() {
+  var colorBlocks = document.getElementsByClassName("colored"),
+    colSpace = _("collection-space"),
+    firstColor = _("first");
+
+  var color1 = colorBlocks[0].textContent,
+    color2 = colorBlocks[1].textContent,
+    color3 = colorBlocks[2].textContent;
+
+  if (firstColor.dataset.first != "true") {
+    collections.push({
+      collection: [color1, color2, color3]
+    });
+    console.log(collections);
+
+    var collectionBlock = document.createElement('div');
+    collectionBlock.className = "collection";
+
+    var color = document.createElement('div');
+    color.className = "color";
+    color.setAttribute("onclick", "displayCopyPaste(this)");
+
+    var color2 = document.createElement('div');
+    color2.className = "color";
+    color2.setAttribute("onclick", "displayCopyPaste(this)");
+
+    var color3 = document.createElement('div');
+    color3.className = "color";
+    color3.setAttribute("onclick", "displayCopyPaste(this)");
+
+    var displayPaletteBlock = document.createElement('div');
+    displayPaletteBlock.className = "display-palette";
+    displayPaletteBlock.setAttribute("onclick", "displayPalette(this)");
+    displayPaletteBlock.innerHTML = "all";
+
+    for (i = 0; i < collections.length; i++) {
+      colSpace.appendChild(collectionBlock);
+      //cN = colorName
+
+      for (cN = 0; cN < collections[i].collection.length; cN++) {
+        color.innerHTML = collections[i].collection[0];
+        color.style.backgroundColor = collections[i].collection[0];
+
+        color2.innerHTML = collections[i].collection[1];
+        color2.style.backgroundColor = collections[i].collection[1];
+
+        color3.innerHTML = collections[i].collection[2];
+        color3.style.backgroundColor = collections[i].collection[2];
+      }
+      collectionBlock.appendChild(displayPaletteBlock);
+      collectionBlock.appendChild(color);
+      collectionBlock.appendChild(color2);
+      collectionBlock.appendChild(color3);
+    }
+  }
+}
+
+//Just a helpful function.
+function _(el) {
+  return document.getElementById(el);
+}
+
+//A function to clear colors off in the saves column
+function clearColors() {
+  var colSpace = _("collection-space");
+  colSpace.innerHTML = "<p>Saved</p><p id='clear' onclick='clearColors()'>clear</p>";
+  collections = []
+}
+
+function toggleClass(el, _class) {
+  if (el && el.className && el.className.indexOf(_class) >= 0) {
+    var pattern = new RegExp('\\s*' + _class + '\\s*');
+    el.className = el.className.replace(pattern, ' ');
+  } else if (el) {
+    el.className = el.className + ' ' + _class;
+  } else {
+    console.log("Element not found :(")
+  }
+}
+
+
+    </script>
+        <div class="disabled" id="color-compare-space">
+                <div id="color-compare-close"></div>
+                <div class="horizontal-compare">
+                    <div class="color first-color" onclick="displayCopyPaste(this)"></div>
+                    <div class="color second-color" onclick="displayCopyPaste(this)"></div>
+                    <div class="color third-color" onclick="displayCopyPaste(this)"></div>
+                </div>
+                <div class="vertical-compare">
+                    <div class="color first-color" onclick="displayCopyPaste(this)"></div>
+                    <div class="color second-color" onclick="displayCopyPaste(this)"></div>
+                    <div class="color third-color" onclick="displayCopyPaste(this)"></div>
+                </div>
+            </div>
+            <div id="nav-block">
+                <nav id="collection-space">
+                    <p>Saved</p>
+                    <p id="clear" onclick="clearColors()">clear</p>
+                </nav>
+            </div>
+            <header><button id="nav-btn"><div id="nav-image"></div></button><label for="nav-btn">SAVED</label><a id="logo" href="#"><span class="orange">RANDOM</span><span class="red">COLOR</span>GENERATOR</a></header>
+            <div class="holder">
+                <div id="save-button" onclick="saveColors()">Save Colors</div>
+                <div class="colored" onclick="generator()"></div>
+                <div class="colored" onclick="generator()" id="first" data-first="true">
+                    <div>Click here to generate color</div>
+                </div>
+                <div class="colored" onclick="generator()"></div>
+            </div>
+</body>
+</html>
