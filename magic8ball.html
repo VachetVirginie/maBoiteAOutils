@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  align-items: center;
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+  justify-content: center;
+  font-size: 0.8rem;
+  min-height: 100vh;
+  text-align: center;
+  letter-spacing: 1px;
+  background: #db0a5b;
+}
+form {
+  border-radius: 100%;
+  cursor: pointer;
+  height: 300px;
+  position: relative;
+  width: 300px;
+}
+form * {
+  cursor: pointer;
+}
+[type='radio'] {
+  display: none;
+  left: 100%;
+  position: absolute;
+}
+[type='reset'] {
+  display: none;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 6;
+}
+li {
+  margin: 0;
+  padding: 0;
+  height: 300px;
+  width: 300px;
+}
+label {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+ul {
+  animation: scale 7s infinite steps(20);
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+}
+.eight {
+  border-radius: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 4;
+}
+.eight__backdrop {
+  background: radial-gradient(circle at 5% 5%, #666, #222 50%), #222;
+  border-radius: 100%;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.eight__number {
+  align-items: center;
+  background: #fff;
+  border-radius: 100%;
+  display: flex;
+  font-size: 125px;
+  height: 50%;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+.eight__window {
+  background: radial-gradient(transparent, #000);
+  border: 10px double #555;
+  border-radius: 100%;
+  height: calc(50% + 20px);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(50% + 20px);
+}
+.eight__fascia {
+  height: 300px;
+  position: relative;
+  width: 300px;
+}
+span {
+  background: #00f;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 1px 1px 0 #bfbfbf;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 45%;
+  height: 45%;
+  transform-origin: 50% 25%;
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: floaty;
+  z-index: 2;
+}
+span:nth-of-type(even) {
+  -webkit-clip-path: polygon(0 100%, 50% 20%, 100% 100%);
+  align-items: flex-end;
+  clip-path: polygon(0 100%, 50% 20%, 100% 100%);
+  padding-bottom: 5%;
+  top: 40%;
+}
+span:nth-of-type(odd) {
+  -webkit-clip-path: polygon(0 0, 50% 80%, 100% 0);
+  align-items: flex-start;
+  clip-path: polygon(0 0, 50% 80%, 100% 0);
+  padding-top: 5%;
+  top: 60%;
+}
+[type='radio']:checked + span {
+  opacity: 1;
+  transition: opacity 1s 1.7s;
+}
+[type='radio']:checked ~ .eight,
+[type='radio']:checked ~ .eight__backdrop {
+  animation: shake 0.25s 4;
+}
+[type='radio']:checked ~ .eight .eight__fascia {
+  transform: translate(0, -100%);
+  transition: transform 0.25s 1.25s ease;
+}
+[type='radio']:checked ~ [type='reset'] {
+  display: block;
+}
+[type='radio']:checked ~ .eight__mask {
+  display: block;
+}
+@-moz-keyframes scale {
+  to {
+    transform: translateY(-100%);
+  }
+}
+@-webkit-keyframes scale {
+  to {
+    transform: translateY(-100%);
+  }
+}
+@-o-keyframes scale {
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes scale {
+  to {
+    transform: translateY(-100%);
+  }
+}
+@-moz-keyframes floaty {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(-2%, 2%) rotate(2deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(2%, -2%) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(1%, 1%) rotate(1deg);
+  }
+}
+@-webkit-keyframes floaty {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(-2%, 2%) rotate(2deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(2%, -2%) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(1%, 1%) rotate(1deg);
+  }
+}
+@-o-keyframes floaty {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(-2%, 2%) rotate(2deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(2%, -2%) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(1%, 1%) rotate(1deg);
+  }
+}
+@keyframes floaty {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(-2%, 2%) rotate(2deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(2%, -2%) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(1%, 1%) rotate(1deg);
+  }
+}
+@-moz-keyframes shake {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, 5px);
+  }
+  75% {
+    transform: translate(-10px, -5px);
+  }
+}
+@-webkit-keyframes shake {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, 5px);
+  }
+  75% {
+    transform: translate(-10px, -5px);
+  }
+}
+@-o-keyframes shake {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, 5px);
+  }
+  75% {
+    transform: translate(-10px, -5px);
+  }
+}
+@keyframes shake {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, 5px);
+  }
+  75% {
+    transform: translate(-10px, -5px);
+  }
+}
+
+</style>
+<body>
+    <form><input type="radio" name="answer" id="It is&lt;br/&gt; certain" value="It is&lt;br/&gt; certain" /><span>It is<br/> certain</span><input type="radio" name="answer" id="It is&lt;br/&gt; decidedly&lt;br/&gt; so" value="It is&lt;br/&gt; decidedly&lt;br/&gt; so"
+        /><span>It is<br/> decidedly<br/> so</span><input type="radio" name="answer" id="Without&lt;br&gt; a&lt;br/&gt; doubt" value="Without&lt;br&gt; a&lt;br/&gt; doubt" /><span>Without<br> a<br/> doubt</span><input type="radio" name="answer" id="Yes&lt;br/&gt; definitely"
+            value="Yes&lt;br/&gt; definitely" /><span>Yes<br/> definitely</span><input type="radio" name="answer" id="You may&lt;br/&gt; rely&lt;br/&gt; on it" value="You may&lt;br/&gt; rely&lt;br/&gt; on it" /><span>You may<br/> rely<br/> on it</span><input
+            type="radio" name="answer" id="As I&lt;br/&gt; see it,&lt;br/&gt; yes" value="As I&lt;br/&gt; see it,&lt;br/&gt; yes" /><span>As I<br/> see it,<br/> yes</span><input type="radio" name="answer" id="Most&lt;br/&gt; likely" value="Most&lt;br/&gt; likely"
+        /><span>Most<br/> likely</span><input type="radio" name="answer" id="Outlook&lt;br/&gt; good" value="Outlook&lt;br/&gt; good" /><span>Outlook<br/> good</span><input type="radio" name="answer" id="Yes" value="Yes" /><span>Yes</span><input type="radio"
+            name="answer" id="Signs&lt;br/&gt; point to&lt;br/&gt; yes" value="Signs&lt;br/&gt; point to&lt;br/&gt; yes" /><span>Signs<br/> point to<br/> yes</span><input type="radio" name="answer" id="Reply &lt;br/&gt; hazy, try&lt;br/&gt; again" value="Reply &lt;br/&gt; hazy, try&lt;br/&gt; again"
+        /><span>Reply <br/> hazy, try<br/> again</span><input type="radio" name="answer" id="Ask&lt;br/&gt; again&lt;br/&gt; later" value="Ask&lt;br/&gt; again&lt;br/&gt; later" /><span>Ask<br/> again<br/> later</span><input type="radio" name="answer" id="Better not&lt;br/&gt; tell you&lt;br/&gt; now"
+            value="Better not&lt;br/&gt; tell you&lt;br/&gt; now" /><span>Better not<br/> tell you<br/> now</span><input type="radio" name="answer" id="Cannot&lt;br/&gt; predict&lt;br/&gt; now" value="Cannot&lt;br/&gt; predict&lt;br/&gt; now" /><span>Cannot<br/> predict<br/> now</span><input
+            type="radio" name="answer" id="Concentrate&lt;br/&gt; and ask&lt;br/&gt; again" value="Concentrate&lt;br/&gt; and ask&lt;br/&gt; again" /><span>Concentrate<br/> and ask<br/> again</span><input type="radio" name="answer" id="Don't&lt;br/&gt; count&lt;br/&gt; on it"
+            value="Don't&lt;br/&gt; count&lt;br/&gt; on it" /><span>Don't<br/> count<br/> on it</span><input type="radio" name="answer" id="My reply&lt;br/&gt; is&lt;br/&gt; no" value="My reply&lt;br/&gt; is&lt;br/&gt; no" /><span>My reply<br/> is<br/> no</span><input
+            type="radio" name="answer" id="My&lt;br/&gt; sources&lt;br/&gt; say no" value="My&lt;br/&gt; sources&lt;br/&gt; say no" /><span>My<br/> sources<br/> say no</span><input type="radio" name="answer" id="Outlook&lt;br/&gt; not so&lt;br/&gt; good" value="Outlook&lt;br/&gt; not so&lt;br/&gt; good"
+        /><span>Outlook<br/> not so<br/> good</span><input type="radio" name="answer" id="Very&lt;br/&gt; doubtful" value="Very&lt;br/&gt; doubtful" /><span>Very<br/> doubtful</span>
+        <div class="eight__backdrop"></div>
+        <div class="eight">
+            <div class="eight__fascia">
+                <div class="eight__number">8</div>
+            </div>
+            <div class="eight__fascia">
+                <div class="eight__window"></div>
+            </div>
+            <ul>
+                <li><label for="It is&lt;br/&gt; certain"></label></li>
+                <li><label for="It is&lt;br/&gt; decidedly&lt;br/&gt; so"></label></li>
+                <li><label for="Without&lt;br&gt; a&lt;br/&gt; doubt"></label></li>
+                <li><label for="Yes&lt;br/&gt; definitely"></label></li>
+                <li><label for="You may&lt;br/&gt; rely&lt;br/&gt; on it"></label></li>
+                <li><label for="As I&lt;br/&gt; see it,&lt;br/&gt; yes"></label></li>
+                <li><label for="Most&lt;br/&gt; likely"></label></li>
+                <li><label for="Outlook&lt;br/&gt; good"></label></li>
+                <li><label for="Yes"></label></li>
+                <li><label for="Signs&lt;br/&gt; point to&lt;br/&gt; yes"></label></li>
+                <li><label for="Reply &lt;br/&gt; hazy, try&lt;br/&gt; again"></label></li>
+                <li><label for="Ask&lt;br/&gt; again&lt;br/&gt; later"></label></li>
+                <li><label for="Better not&lt;br/&gt; tell you&lt;br/&gt; now"></label></li>
+                <li><label for="Cannot&lt;br/&gt; predict&lt;br/&gt; now"></label></li>
+                <li><label for="Concentrate&lt;br/&gt; and ask&lt;br/&gt; again"></label></li>
+                <li><label for="Don't&lt;br/&gt; count&lt;br/&gt; on it"></label></li>
+                <li><label for="My reply&lt;br/&gt; is&lt;br/&gt; no"></label></li>
+                <li><label for="My&lt;br/&gt; sources&lt;br/&gt; say no"></label></li>
+                <li><label for="Outlook&lt;br/&gt; not so&lt;br/&gt; good"></label></li>
+                <li><label for="Very&lt;br/&gt; doubtful"></label></li>
+            </ul>
+        </div><input type="reset" /></form>
+</body>
+</html>
